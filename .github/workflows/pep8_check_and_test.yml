@@ -24,3 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: pipenv install --dev
+
+      - name: Run flake8
+        run: flake8 app/
