@@ -1,16 +1,7 @@
 name: Pylint
 
-on: 
-  push:
-    paths:
-      - 'app/**'
-      - 'Pipfile'
-      - 'Pipfile.lock'
-  pull_request:
-    paths:
-      - 'app/**'
-      - 'Pipfile'
-      - 'Pipfile.lock'
+on: [push]
+  
 
 jobs:
   build:
