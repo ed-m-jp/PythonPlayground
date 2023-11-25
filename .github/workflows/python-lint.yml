@@ -25,12 +25,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pipenv
-        run: |
-          pip install pipenv
-
       - name: Install dependencies with Pipenv
         run: |
+          pip install pipenv
           Pipenv install
 
       - name: Run flake8
