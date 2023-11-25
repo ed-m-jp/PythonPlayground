@@ -1,6 +1,9 @@
-from typing import Generic, TypeVar, Optional
-from app.domain.service_result_status import ServiceResultStatus
+# Standard library imports
+from typing import Generic, Optional, TypeVar
+
+# Local application/library specific imports
 from app.domain.repository_action_status import RepositoryActionStatus
+from app.domain.service_result_status import ServiceResultStatus
 
 T = TypeVar("T")
 

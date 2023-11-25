@@ -1,6 +1,9 @@
+# Standard library imports
 from datetime import date
-from pydantic import BaseModel, Field, validator
 from typing import Optional
+
+# Related third-party imports
+from pydantic import BaseModel, Field, validator
 
 
 class ScoreCreate(BaseModel):

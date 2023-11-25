@@ -1,0 +1,42 @@
+name: Python Lint
+
+on:
+  push:
+    paths:
+      - 'app/**'
+      - 'Pipfile'
+      - 'Pipfile.lock'
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'Pipfile'
+      - 'Pipfile.lock'
+
+jobs:
+  flake8:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Cache Pipenv virtualenv
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+
+      - name: Install dependencies with Pipenv
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run flake8
+        run: pipenv run flake8 app/

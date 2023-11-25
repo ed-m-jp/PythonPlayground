@@ -1,4 +1,7 @@
-from typing import Generic, TypeVar, Optional
+# Standard library imports
+from typing import Generic, Optional, TypeVar
+
+# Local application/library specific imports
 from app.domain.repository_action_status import RepositoryActionStatus
 
 T = TypeVar("T")
