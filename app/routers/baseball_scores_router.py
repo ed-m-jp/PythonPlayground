@@ -1,12 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+# Standard library imports
 from datetime import date
 from typing import Optional
-from app.schemas.score_create_schema import ScoreCreate
-from app.schemas.score_update_schema import ScoreUpdate
-from app.schemas.score_dto import ScoreDTO
-from app.schemas.pagination_response import PaginationResponse
-from app.services.score_service import ScoreService
+
+# Third-party imports
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+
+# Local application imports
 from app.dependencies import get_score_service
+from app.schemas.pagination_response import PaginationResponse
+from app.schemas.score_create_schema import ScoreCreate
+from app.schemas.score_dto import ScoreDTO
+from app.schemas.score_update_schema import ScoreUpdate
+from app.services.score_service import ScoreService
 
 router = APIRouter()
 
@@ -89,6 +94,7 @@ def patch_score(
     - **returns**: Updated score details.
     """
     update_result = score_service.update_score(score_id, score)
+
     if update_result.is_ok:
         return update_result.data
     elif update_result.is_not_found:

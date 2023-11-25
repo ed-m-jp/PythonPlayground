@@ -1,6 +1,11 @@
-from sqlalchemy.orm import Session
-from app.models.baseball_player_score import BaseballPlayerScore
+# Standard library imports
 from datetime import date
+
+# Related third-party imports
+from sqlalchemy.orm import Session
+
+# Local application/library specific imports
+from app.models.baseball_player_score import BaseballPlayerScore
 
 
 def seed_data(db: Session):

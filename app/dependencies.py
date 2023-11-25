@@ -1,5 +1,8 @@
-from sqlalchemy.orm import Session
+# Related third-party imports
 from fastapi import Depends
+from sqlalchemy.orm import Session
+
+# Local application/library specific imports
 from app.database.database import SessionLocal
 from app.repositories.baseball_player_score_repository import (
     BaseballPlayerScoreRepository,

@@ -1,3 +1,4 @@
+# Local application/library specific imports
 from app.schemas.score_dto import ScoreDTO
 
 

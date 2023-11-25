@@ -1,5 +1,8 @@
-from sqlalchemy import Column, Integer, String, Date, UniqueConstraint
+# Related third-party imports
+from sqlalchemy import Column, Date, Integer, String, UniqueConstraint
 from sqlalchemy.schema import Index
+
+# Local application/library specific imports
 from app.database.database import Base
 
 

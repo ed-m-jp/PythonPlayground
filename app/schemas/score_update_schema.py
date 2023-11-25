@@ -1,6 +1,9 @@
-from pydantic import BaseModel, Field, model_validator, validator
-from typing import Optional
+# Standard library imports
 from datetime import date
+from typing import Optional
+
+# Related third-party imports
+from pydantic import BaseModel, Field, model_validator, validator
 
 
 class ScoreUpdate(BaseModel):
@@ -11,7 +14,14 @@ class ScoreUpdate(BaseModel):
 
     @model_validator(mode='after')
     def check_at_least_one_field(self):
-        if not any([self.player_name, self.player_team, self.score, self.match_date]):
+        if not any(
+            [
+                self.player_name,
+                self.player_team,
+                self.score,
+                self.match_date
+            ]
+        ):
             raise ValueError("At least one field must be provided for update")
         return self
 

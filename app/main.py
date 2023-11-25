@@ -1,7 +1,11 @@
+# Standard library imports
 import os
-from fastapi import FastAPI
-from dotenv import load_dotenv
 
+# Related third-party imports
+from dotenv import load_dotenv
+from fastapi import FastAPI
+
+# Local application/library specific imports
 # Database configuration
 from app.database.database import SessionLocal, engine
 
