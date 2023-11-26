@@ -111,6 +111,8 @@ This example shows a score data transfer object with an ID, player name, player 
 - **GET /scores**
   - Description: Search for baseball scores based on various criteria and return a paginated response.
   - Query Parameters:
+    - `player_name`: Player name filter (optional).
+    - `player_team`: Player team filter (optional).
     - `min_score`: Minimum score filter (optional).
     - `start_date`: Start date of the range filter (optional).
     - `end_date`: End date of the range filter (optional).
@@ -122,7 +124,10 @@ This example shows a score data transfer object with an ID, player name, player 
 
 
 ### Testing
-Coming soon.
+To run the test for this app just use the following command after completing the setup section.
+```bash
+pipenv run pytest
+```
 
 ### Authors
 MAIRE Edward

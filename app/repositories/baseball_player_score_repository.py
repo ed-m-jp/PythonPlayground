@@ -47,6 +47,8 @@ class BaseballPlayerScoreRepository(RepositoryBase[BaseballPlayerScore]):
 
     def search_scores(
         self,
+        player_name: Optional[str],
+        player_team: Optional[str],
         min_score: Optional[int],
         start_date: Optional[date],
         end_date: Optional[date],
@@ -56,6 +58,14 @@ class BaseballPlayerScoreRepository(RepositoryBase[BaseballPlayerScore]):
         try:
             query = self.db.query(BaseballPlayerScore)
 
+            if player_name is not None:
+                query = query.filter(
+                    BaseballPlayerScore.player_name == player_name
+                )
+            if player_team is not None:
+                query = query.filter(
+                    BaseballPlayerScore.player_team == player_team
+                )
             if min_score is not None:
                 query = query.filter(
                     BaseballPlayerScore.score >= min_score
