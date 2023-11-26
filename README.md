@@ -25,11 +25,6 @@ The API provides a suite of functionalities centered around baseball score manag
 
 As a personal journey into Python, this project has been a valuable stepping stone in learning the language and its ecosystem.
 
-## Features
-- Feature 1
-- Feature 2
-- Feature 3
-
 ## Installation and Setup
 
 ### Prerequisites
