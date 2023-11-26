@@ -175,6 +175,8 @@ def test_search_scores(score_service, mock_repository):
     # Act
     result = score_service.search_scores(
         min_score=10,
+        player_name=None,
+        player_team=None,
         start_date=None,
         end_date=None,
         page=1,

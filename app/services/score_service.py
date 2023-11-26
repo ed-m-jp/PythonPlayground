@@ -79,6 +79,8 @@ class ScoreService:
 
     def search_scores(
         self,
+        player_name: Optional[str],
+        player_team: Optional[str],
         min_score: Optional[int],
         start_date: Optional[date],
         end_date: Optional[date],
@@ -86,6 +88,8 @@ class ScoreService:
         page_size: int
     ) -> ServiceResult[PaginationResponse]:
         search_result = self.repository.search_scores(
+            player_name=player_name,
+            player_team=player_team,
             min_score=min_score,
             start_date=start_date,
             end_date=end_date,

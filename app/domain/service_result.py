@@ -115,7 +115,7 @@ class ServiceResult(Generic[T]):
         message=None
     ):
         if repository_action_result.status == RepositoryActionStatus.OK:
-            # Convert the database entoty to DTO if necessary
+            # Convert the database entity to DTO if necessary
             if repository_action_result.entity is not None:
                 if isinstance(repository_action_result.entity, list):
                     data_dto = [

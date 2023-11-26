@@ -136,6 +136,12 @@ def delete_score(
     status_code=status.HTTP_200_OK,
 )
 def search_scores(
+    player_name: Optional[str] = Query(
+        None, description="Filter by player's name"
+    ),
+    player_team: Optional[str] = Query(
+        None, description="Filter by player's team"
+    ),
     min_score: Optional[int] = Query(
         None, ge=0, description="Minimum score filter"
     ),
@@ -156,6 +162,8 @@ def search_scores(
     """
     Search for baseball scores based on various criteria.
 
+    - **player_name**: Filter scores by player's name.
+    - **player_team**: Filter scores by player's team.
     - **min_score**: Filter scores with a minimum value.
     - **start_date**: Start date for score range filter.
     - **end_date**: End date for score range filter.
@@ -165,6 +173,8 @@ def search_scores(
     # we would need to implement some caching and restriction
     # to query a large amount of data
     search_result = score_service.search_scores(
+        player_name=player_name,
+        player_team=player_team,
         min_score=min_score,
         start_date=start_date,
         end_date=end_date,

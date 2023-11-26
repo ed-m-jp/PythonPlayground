@@ -201,6 +201,8 @@ def test_search_scores(baseball_player_score_repository):
 
     # Act
     search_result = baseball_player_score_repository.search_scores(
+        player_name=None,
+        player_team=None,
         min_score=50,
         start_date=datetime.strptime("2023-01-01", "%Y-%m-%d").date(),
         end_date=datetime.strptime("2023-12-31", "%Y-%m-%d").date(),
@@ -213,3 +215,58 @@ def test_search_scores(baseball_player_score_repository):
     assert len(search_result.entity.items) == 2
     assert all(score.score >= 50 for score in search_result.entity.items)
     assert search_result.entity.total_items >= 2
+
+
+def test_search_scores_by_names(baseball_player_score_repository):
+    # Arrange
+    scores_to_create = [
+        BaseballPlayerScore(
+            player_name="Player A",
+            player_team="Team X",
+            score=40,
+            match_date=datetime.strptime("2023-06-01", "%Y-%m-%d").date()
+        ),
+        BaseballPlayerScore(
+            player_name="Player B",
+            player_team="Team Y",
+            score=60,
+            match_date=datetime.strptime("2023-07-01", "%Y-%m-%d").date()
+        ),
+        BaseballPlayerScore(
+            player_name="Player C",
+            player_team="Team Z",
+            score=70,
+            match_date=datetime.strptime("2023-08-01", "%Y-%m-%d").date()
+        ),
+        BaseballPlayerScore(
+            player_name="Player E",
+            player_team="Team Y",
+            score=60,
+            match_date=datetime.strptime("2023-07-01", "%Y-%m-%d").date()
+        ),
+    ]
+
+    for score in scores_to_create:
+        baseball_player_score_repository.create(score)
+
+    # Act
+    search_result = baseball_player_score_repository.search_scores(
+        player_name="Player E",
+        player_team="Team Y",
+        min_score=None,
+        start_date=None,
+        end_date=None,
+        page=1,
+        page_size=10
+    )
+
+    # Assert
+    assert search_result.is_ok
+    assert len(search_result.entity.items) == 1
+    assert all(
+        score.player_name >= "Player E" for score in search_result.entity.items
+    )
+    assert all(
+        score.player_team >= "Team Y" for score in search_result.entity.items
+    )
+    assert search_result.entity.total_items >= 1
