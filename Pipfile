@@ -11,6 +11,10 @@ sqlalchemy = "*"
 python-dotenv = "*"
 
 [dev-packages]
+pytest = "*"
 
 [requires]
 python_version = "3.11"
+
+[scripts]
+lint = "flake8 app/ tests/"

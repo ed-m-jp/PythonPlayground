@@ -3,7 +3,7 @@ from datetime import date
 from typing import Optional
 
 # Related third-party imports
-from pydantic import BaseModel, Field, model_validator, validator
+from pydantic import BaseModel, Field, model_validator, field_validator
 
 
 class ScoreUpdate(BaseModel):
@@ -25,7 +25,7 @@ class ScoreUpdate(BaseModel):
             raise ValueError("At least one field must be provided for update")
         return self
 
-    @validator("player_name", always=True)
+    @field_validator('player_name', mode='before')
     def validate_player_name(cls, value):
         if value is not None and not value.strip():
             raise ValueError("Player name must not be empty or blank")

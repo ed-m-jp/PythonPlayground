@@ -1,4 +1,4 @@
-name: Pylint
+name: pep8_check_and_test
 
 on: [push]
   
@@ -26,4 +26,8 @@ jobs:
         run: pipenv install --dev
 
       - name: Run flake8
-        run: pipenv run flake8 app/
+        run: pipenv run lint
+
+      - name: Run tests
+        run: pipenv run pytest
+        

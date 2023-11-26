@@ -3,7 +3,7 @@ from datetime import date
 from typing import Optional
 
 # Related third-party imports
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class ScoreCreate(BaseModel):
@@ -14,7 +14,7 @@ class ScoreCreate(BaseModel):
 
     # This will check for name with only spaces that would bypass the
     # min_length=1 check.
-    @validator("player_name")
+    @field_validator('player_name')
     def name_must_not_be_empty(cls, value):
         if not value.strip():
             raise ValueError("Player name must not be empty.")

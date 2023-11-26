@@ -1,7 +1,6 @@
 # Related third-party imports
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Create an in-memory SQLite database,
 # need to change this later if this app becomes a real service.

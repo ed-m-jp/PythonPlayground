@@ -41,7 +41,7 @@ class ScoreService:
             )
 
         # map score DTO to model.
-        score_model = BaseballPlayerScore(**score.dict())
+        score_model = BaseballPlayerScore(**score.model_dump())
 
         create_result = self.repository.create(score_model)
         return ServiceResult.from_repository_action_result(
@@ -62,7 +62,7 @@ class ScoreService:
         score: ScoreUpdate
     ) -> ServiceResult[ScoreDTO]:
         # Convert Pydantic model to dictionary, excluding unset fields
-        score_data = score.dict(exclude_unset=True)
+        score_data = score.model_dump(exclude_unset=True)
 
         update_result = self.repository.update(score_id, score_data)
         return ServiceResult.from_repository_action_result(
