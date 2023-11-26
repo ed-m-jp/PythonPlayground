@@ -14,6 +14,6 @@ class Pagination(BaseModel):
     page_size: int
 
 
-class PaginationResponse(Generic[T], BaseModel):
+class PaginationResponse(BaseModel, Generic[T]):
     items: List[T]
     pagination: Pagination
