@@ -2,12 +2,11 @@
 
 # Table of Contents
 - [Introduction](#introduction)
-- [Features](#features)
 - [Installation and Setup](#installation-and-setup)
    - [Prerequisites](#prerequisites)
    - [Setup Instructions](#setup-instructions)
 - [Running the Application](#running-the-application)
-- [ScoreDTO example](#scoresto-example)
+- [ScoreDTO Example](#scoredto-example)
 - [API Endpoints](#api-endpoints)
 - [Testing](#testing)
 - [Authors](#authors)
