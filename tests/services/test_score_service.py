@@ -1,17 +1,17 @@
 # test_score_service.py
 import pytest
 from unittest.mock import Mock
-from datetime import datetime, date
+from datetime import date
 from app.services.score_service import ScoreService
 from app.domain.pagination_result import PaginationResult
 from app.domain.repository_action_result import RepositoryActionResult
-from app.domain.service_result import ServiceResult
 from app.models.baseball_player_score import BaseballPlayerScore
 from app.repositories.baseball_player_score_repository import (
     BaseballPlayerScoreRepository,
 )
 from app.schemas.score_create_schema import ScoreCreate
 from app.schemas.score_update_schema import ScoreUpdate
+
 
 @pytest.fixture
 def mock_repository():
@@ -25,9 +25,17 @@ def score_service(mock_repository):
 
 def test_create_score_new(score_service, mock_repository):
     # Arrange
-    mock_repository.get_score_from_player_and_date.return_value = RepositoryActionResult.not_found("not found")
-    new_score = ScoreCreate(player_name="John Doe", score=10, match_date=date.today())
-    mock_repository.create.return_value = RepositoryActionResult.ok(BaseballPlayerScore(id=1, **new_score.model_dump()))
+    mock_repository.get_score_from_player_and_date.return_value = (
+        RepositoryActionResult.not_found("not found")
+    )
+    new_score_data = {
+        "player_name": "John Doe",
+        "score": 10,
+        "match_date": date.today(),
+    }
+    new_score = ScoreCreate(**new_score_data)
+    mock_score = BaseballPlayerScore(id=1, **new_score.model_dump())
+    mock_repository.create.return_value = RepositoryActionResult.ok(mock_score)
 
     # Act
     result = score_service.create_score(new_score)
@@ -39,11 +47,23 @@ def test_create_score_new(score_service, mock_repository):
 
 def test_create_score_duplicate(score_service, mock_repository):
     # Arrange
-    existing_score = BaseballPlayerScore(id=1, player_name="John Doe", score=10, match_date=date.today())
-    mock_repository.get_score_from_player_and_date.return_value = RepositoryActionResult.ok(existing_score)
+    existing_score = BaseballPlayerScore(
+        id=1,
+        player_name="John Doe",
+        score=10,
+        match_date=date.today()
+    )
+    mock_repository.get_score_from_player_and_date.return_value = (
+        RepositoryActionResult.ok(existing_score)
+    )
+    score_create = ScoreCreate(
+        player_name="John Doe",
+        score=10,
+        match_date=date.today()
+    )
 
     # Act
-    result = score_service.create_score(ScoreCreate(player_name="John Doe", score=10, match_date=date.today()))
+    result = score_service.create_score(score_create)
 
     # Assert
     assert result.is_conflict
@@ -51,7 +71,12 @@ def test_create_score_duplicate(score_service, mock_repository):
 
 def test_get_score(score_service, mock_repository):
     # Arrange
-    mock_score = BaseballPlayerScore(id=1, player_name="John Doe", score=10, match_date=date.today())
+    mock_score = BaseballPlayerScore(
+        id=1,
+        player_name="John Doe",
+        score=10,
+        match_date=date.today()
+    )
     repository_result = RepositoryActionResult.ok(mock_score)
     mock_repository.get_by_id.return_value = repository_result
 
@@ -68,8 +93,15 @@ def test_update_score(score_service, mock_repository):
     # Arrange
     score_id = 1
     update_data = ScoreUpdate(player_name="Jane Doe")
-    updated_score = BaseballPlayerScore(id=score_id, player_name="Jane Doe", score=10, match_date=date.today())
-    mock_repository.update.return_value = RepositoryActionResult.ok(updated_score)
+    updated_score = BaseballPlayerScore(
+        id=score_id,
+        player_name="Jane Doe",
+        score=10,
+        match_date=date.today()
+    )
+    mock_repository.update.return_value = (
+        RepositoryActionResult.ok(updated_score)
+    )
 
     # Act
     result = score_service.update_score(score_id, update_data)
@@ -83,7 +115,9 @@ def test_update_score_not_found(score_service, mock_repository):
     # Arrange
     score_id = 1
     update_data = ScoreUpdate(player_name="Jane Doe")
-    mock_repository.update.return_value = RepositoryActionResult.not_found("not found")
+    mock_repository.update.return_value = (
+        RepositoryActionResult.not_found("not found")
+    )
 
     # Act
     result = score_service.update_score(score_id, update_data)
@@ -108,7 +142,9 @@ def test_delete_score(score_service, mock_repository):
 def test_delete_score_not_found(score_service, mock_repository):
     # Arrange
     score_id = 1
-    mock_repository.delete.return_value = RepositoryActionResult.not_found("not found")
+    mock_repository.delete.return_value = (
+        RepositoryActionResult.not_found("not found")
+    )
 
     # Act
     result = score_service.delete_score(score_id)
@@ -121,9 +157,20 @@ def test_delete_score_not_found(score_service, mock_repository):
 def test_search_scores(score_service, mock_repository):
     # Arrange
     mock_scores = [
-        BaseballPlayerScore(id=1, player_name="John Doe", score=20, match_date=date.today()),
+        BaseballPlayerScore(
+            id=1,
+            player_name="John Doe",
+            score=20,
+            match_date=date.today()
+        ),
     ]
-    mock_repository.search_scores.return_value = RepositoryActionResult.ok(PaginationResult(items=mock_scores, total_items=len(mock_scores)))
+    pagination_result = PaginationResult(
+        items=mock_scores,
+        total_items=len(mock_scores)
+    )
+    mock_repository.search_scores.return_value = RepositoryActionResult.ok(
+        pagination_result
+    )
 
     # Act
     result = score_service.search_scores(

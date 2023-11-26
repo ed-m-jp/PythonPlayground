@@ -12,5 +12,5 @@ class ScoreDTO(BaseModel):
     player_team: Optional[str] = None
     score: int
     match_date: date
-    
-    model_config = ConfigDict(from_attributes = True)
+
+    model_config = ConfigDict(from_attributes=True)
