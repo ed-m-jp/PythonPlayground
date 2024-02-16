@@ -13,7 +13,7 @@
 - [Acknowledgments](#acknowledgments)
 
 ## Introduction
-MyFirstPythonApi is a Python-based web API focused on managing baseball scores. This project serves as a hands-on learning experience, designed to enhance my skills and understanding of Python, particularly in building and working with APIs.
+PythonPlayground is a Python-based web API focused on managing baseball scores. This project serves as a hands-on learning experience, designed to enhance my skills and understanding of Python, particularly in building and working with APIs.
 
 The API provides a suite of functionalities centered around baseball score management. It allows users to perform a variety of operations such as:
 - **Retrieving Scores**: Fetching score details by a specific ID.
@@ -34,7 +34,7 @@ As a personal journey into Python, this project has been a valuable stepping sto
 1. Clone the repository:
    ```bash
    git clone [your-repo-link]
-   cd MyFirstPythonApi
+   cd PythonPlayground
    ```
 
 2. To install the project dependencies, run:
