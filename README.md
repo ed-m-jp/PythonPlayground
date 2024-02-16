@@ -1,4 +1,4 @@
-# MyFirstPythonApi
+# PythonPlayground
 
 # Table of Contents
 - [Introduction](#introduction)
